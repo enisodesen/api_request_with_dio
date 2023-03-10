@@ -13,18 +13,23 @@ class Users extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(controller.myList.value[0].avatar.toString()),
-            // Text(controller.myList.value[0].id.toString()),
-            Text(controller.myList.value[0].firstName.toString()),
-            Text(controller.myList.value[0].lastName.toString()),
-            Text(controller.myList.value[0].email.toString()),
+        child: controller.myList.value.isEmpty
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [Text('HomePage')],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.network(controller.myList.value[0].avatar.toString()),
+                  // Text(controller.myList.value[0].id.toString()),
+                  Text(controller.myList.value[0].firstName.toString()),
+                  Text(controller.myList.value[0].lastName.toString()),
+                  Text(controller.myList.value[0].email.toString()),
 
-            Text(controller.myList.value[0].avatar.toString()),
-          ],
-        ),
+                  Text(controller.myList.value[0].avatar.toString()),
+                ],
+              ),
       ),
     );
   }
