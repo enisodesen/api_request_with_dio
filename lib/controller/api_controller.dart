@@ -13,6 +13,9 @@ class ApiController extends GetxController {
   var emailController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
 
+  var emailRegister = TextEditingController().obs;
+  var passwordRegister = TextEditingController().obs;
+
   late String accessToken;
 
   var myList = <LoadDataData>[].obs;
@@ -41,5 +44,24 @@ class ApiController extends GetxController {
         Get.snackbar('Hata', 'Hatalı gitiş bilgileri...');
       }
     });
+  }
+
+  void registerMethod() {
+    service
+        .registerCall(emailRegister.value.text, passwordRegister.value.text)
+        .then((value) {
+      if (value != null) {
+        print('User value: ${value.id}');
+        print('Token: ${value.token}');
+        Get.to(Users());
+      } else {
+        Get.snackbar('Hata', 'Kayıt olurken bir hata oluştu');
+      }
+    });
+  }
+
+  var pageStatus = true.obs;
+  void changePageStatus() {
+    pageStatus.value = !pageStatus.value;
   }
 }

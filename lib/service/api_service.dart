@@ -1,6 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:api_request_with_dio/model/load_data.dart';
 import 'package:api_request_with_dio/model/token.dart';
 import 'package:dio/dio.dart';
+
+import '../model/register.dart';
 
 class ApiService {
   final dio = Dio();
@@ -23,6 +27,18 @@ class ApiService {
       final x = Token.fromJson(response.data);
       print(x);
       return x;
+    } catch (e) {
+      print('Hata kodu: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<RegisterModel?> registerCall(String email, String password) async {
+    try {
+      final response = await dio.post('${baseUrl}register',
+          data: {"email": email, "password": password});
+      final jsonBody = RegisterModel.fromJson(response.data);
+      return jsonBody;
     } catch (e) {
       print('Hata kodu: ${e.toString()}');
       return null;
